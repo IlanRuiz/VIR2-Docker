@@ -5,6 +5,9 @@ FROM debian:11
 RUN apt update -y
 RUN apt upgrade -y
 
+#Set root password
+RUN echo 'root:Pa$$w0rd' | chpasswd
+
 #Installation de quelques outils pour le debuggage
 RUN apt install iproute2 -y
 RUN apt install iputils-ping -y
