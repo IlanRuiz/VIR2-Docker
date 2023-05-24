@@ -16,6 +16,9 @@ RUN apt install weevely -y
 RUN apt install sqlmap -y
 RUN apt install patator -y
 
+#Set root password
+RUN echo 'root:Pa$$w0rd' | chpasswd
+
 #Ajout d'un utilisateur nomme vault pour se connecter en ssh au container
 RUN adduser vault;echo 'vault:Pa$$w0rd' | chpasswd
 
