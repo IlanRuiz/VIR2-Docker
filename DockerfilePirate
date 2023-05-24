@@ -1,0 +1,26 @@
+#Utilisation de l'image de debian 11
+FROM debian:11
+
+#Maj du système
+RUN apt update && apt install openssh-server -y
+
+#Installation de tous les outils requis pour faire le labo
+RUN apt install iproute2 -y
+RUN apt install iputils-ping -y
+RUN apt install nano -y
+RUN apt install nmap -y
+RUN apt install netdiscover -y
+RUN apt install lynx -y
+RUN apt install crunch -y
+RUN apt install weevely -y
+RUN apt install sqlmap -y
+RUN apt install patator -y
+
+#Ajout d'un utilisateur nomme vault pour se connecter en ssh au container
+RUN adduser vault;echo 'vault:Pa$$w0rd' | chpasswd
+
+#Exposition du port 22 afin de se connecter en ssh
+EXPOSE 22
+
+#Demarage du service ssh
+ENTRYPOINT service ssh restart && bash

@@ -1,0 +1,37 @@
+#Utilisation de l'image de debian 11
+FROM debian:11
+
+#Maj du système
+RUN apt update -y
+RUN apt upgrade -y
+
+#Installation de quelques outils pour le debuggage
+RUN apt install iproute2 -y
+RUN apt install iputils-ping -y
+RUN apt install nano -y
+RUN apt install nmap -y
+RUN apt install lynx -y
+
+#Installation des paquets requis pour le LAMP
+RUN apt install apache2 -y
+RUN apt install php -y
+RUN apt install php-mysql -y
+RUN apt install php-curl -y
+RUN apt install mariadb-server -y
+
+#Mise en place du site web pour le pentest
+RUN mkdir -p /var/www/html/photoblog-main
+COPY ./Photoblog-main /var/www/html/photoblog-main
+COPY ./photoblog.conf /etc/apache2/sites-available/
+
+#Lancement du service apache
+#Desactivation de la configuration par defaut
+#Activation de la configuration du site photoblog
+CMD ["apachectl","-D","FOREGROUND"]
+RUN a2enmod rewrite
+RUN a2dissite 000-default
+RUN a2ensite photoblog.conf
+
+#Exposition des ports afin de joindre le container via http et https
+EXPOSE 80
+EXPOSE 443
