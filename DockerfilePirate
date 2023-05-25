@@ -21,6 +21,7 @@ RUN echo 'root:Pa$$w0rd' | chpasswd
 
 #Ajout d'un utilisateur nomme vault pour se connecter en ssh au container
 RUN adduser vault;echo 'vault:Pa$$w0rd' | chpasswd
+RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 
 #Exposition du port 22 afin de se connecter en ssh
 EXPOSE 22

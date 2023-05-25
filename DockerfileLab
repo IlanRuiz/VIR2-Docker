@@ -28,7 +28,7 @@ RUN mkdir -p /var/www/html/photoblog-main
 COPY ./Photoblog-main /var/www/html/photoblog-main
 COPY ./photoblog.conf /etc/apache2/sites-available/
 
-#Config supervisor
+#Config de supervisor pour lancer les services de apache2 et mariadb
 COPY ./supervisor.conf /etc/supervisor/conf.d/supervisord.conf
 CMD ["/usr/bin/supervisord"]
 
