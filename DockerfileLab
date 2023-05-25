@@ -21,16 +21,19 @@ RUN apt install php -y
 RUN apt install php-mysql -y
 RUN apt install php-curl -y
 RUN apt install mariadb-server -y
+RUN apt install supervisor -y
 
 #Mise en place du site web pour le pentest
 RUN mkdir -p /var/www/html/photoblog-main
 COPY ./Photoblog-main /var/www/html/photoblog-main
 COPY ./photoblog.conf /etc/apache2/sites-available/
 
-#Lancement du service apache
+#Config supervisor
+COPY ./supervisor.conf /etc/supervisor/conf.d/supervisord.conf
+CMD ["/usr/bin/supervisord"]
+
 #Desactivation de la configuration par defaut
 #Activation de la configuration du site photoblog
-CMD ["apachectl","-D","FOREGROUND"]
 RUN a2enmod rewrite
 RUN a2dissite 000-default
 RUN a2ensite photoblog.conf
