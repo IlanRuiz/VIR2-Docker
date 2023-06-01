@@ -32,6 +32,9 @@ COPY ./photoblog.conf /etc/apache2/sites-available/
 COPY ./supervisor.conf /etc/supervisor/conf.d/supervisord.conf
 CMD ["/usr/bin/supervisord"]
 
+#Ajout des failles de sécurités dans le fichier php.ini
+COPY ./faille/php.ini /etc/php/7.4/apache2/php.ini
+
 #Desactivation de la configuration par defaut
 #Activation de la configuration du site photoblog
 RUN a2enmod rewrite
