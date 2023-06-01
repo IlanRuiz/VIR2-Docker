@@ -1,0 +1,16 @@
+version: '3'
+services:
+  laboratoire:
+    build:
+      dockerfile: DockerfileLab
+    ports:
+      - "8080:80"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+  pirate:
+    build:
+      dockerfile: DockerfilePirate
+    ports:
+      - "2222:22"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
