@@ -4,13 +4,21 @@ services:
     build:
       dockerfile: DockerfileLab
     ports:
-      - "8080:80"
+      - 80
     stdin_open: true # docker run -i
     tty: true        # docker run -t
+    networks:
+      - eleve1
   pirate:
     build:
       dockerfile: DockerfilePirate
     ports:
-      - "2222:22"
+      - 22
     stdin_open: true # docker run -i
     tty: true        # docker run -t
+    networks:
+      - eleve1
+
+networks:
+  eleve1:
+
