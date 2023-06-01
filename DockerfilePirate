@@ -16,6 +16,9 @@ RUN apt install weevely -y
 RUN apt install sqlmap -y
 RUN apt install patator -y
 
+#POC application test
+RUN apt install cowsay -y
+
 #Set root password
 RUN echo 'root:Pa$$w0rd' | chpasswd
 

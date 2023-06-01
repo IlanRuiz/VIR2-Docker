@@ -14,6 +14,7 @@ RUN apt install iputils-ping -y
 RUN apt install nano -y
 RUN apt install nmap -y
 RUN apt install lynx -y
+RUN apt install openssh-server -y
 
 #Installation des paquets requis pour le LAMP
 RUN apt install apache2 -y
@@ -22,6 +23,9 @@ RUN apt install php-mysql -y
 RUN apt install php-curl -y
 RUN apt install mariadb-server -y
 RUN apt install supervisor -y
+
+#POC application test
+RUN apt install cowsay -y
 
 #Mise en place du site web pour le pentest
 RUN mkdir -p /var/www/html/photoblog-main
@@ -35,9 +39,13 @@ CMD ["/usr/bin/supervisord"]
 #Ajout des failles de sécurités dans le fichier php.ini
 COPY ./faille/php.ini /etc/php/7.4/apache2/php.ini
 
+#Permit root login ssh
+RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+
 #Desactivation de la configuration par defaut
 #Activation de la configuration du site photoblog
 RUN a2enmod rewrite
+RUN a2enmod autoindex
 RUN a2dissite 000-default
 RUN a2ensite photoblog.conf
 
